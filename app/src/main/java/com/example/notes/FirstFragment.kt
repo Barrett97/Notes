@@ -1,5 +1,6 @@
 package com.example.notes
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notes.adapter.NoteRecyclerAdapter
+import com.example.notes.room.NoteEditActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.fragment_first.*
 
 
 /**
@@ -36,7 +39,10 @@ class FirstFragment : Fragment() {
         requireActivity().findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
+            val intent = Intent(activity, NoteEditActivity::class.java)
+            startActivity(intent)
         }
 
         initRecyclerView()
@@ -59,4 +65,9 @@ class FirstFragment : Fragment() {
             }
         })
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 }
