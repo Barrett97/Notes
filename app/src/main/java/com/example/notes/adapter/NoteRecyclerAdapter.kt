@@ -43,6 +43,8 @@ class NoteRecyclerAdapter  : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             title.text = note.title
             body.text = note.body
         }
+
+
     }
 
 }

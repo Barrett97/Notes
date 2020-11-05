@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.room.Note
 import kotlinx.android.synthetic.main.fragment_second.*
@@ -16,11 +17,9 @@ import kotlinx.android.synthetic.main.fragment_second.*
  */
 class NoteFragment : Fragment() {
 
-    lateinit var noteViewModel: NoteViewModel
+    private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second, container, false)
@@ -29,7 +28,7 @@ class NoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noteViewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
+//        noteViewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
 
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
             save()
@@ -45,5 +44,9 @@ class NoteFragment : Fragment() {
         val note = Note(0, editTextTitle.text.toString(), editTextBody.text.toString())
         noteViewModel.insert(note)
 
+
+//        requireActivity().onBackPressed()
     }
+
+
 }
