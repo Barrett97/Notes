@@ -9,6 +9,8 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.room.Note
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_second.*
 
 
@@ -30,22 +32,22 @@ class NoteFragment : Fragment() {
 
 //        noteViewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            save()
+        view.findViewById<FloatingActionButton>(R.id.fabEditNote).setOnClickListener {
+            save(view)
         }
 
     }
 
-    private fun save() {
+    private fun save(view: View) {
         if (editTextTitle.text.isEmpty()) {
+            Snackbar.make(view, "Need a title", 1000)
             return
         }
 
         val note = Note(0, editTextTitle.text.toString(), editTextBody.text.toString())
         noteViewModel.insert(note)
 
-
-//        requireActivity().onBackPressed()
+        requireActivity().onBackPressed()
     }
 
 

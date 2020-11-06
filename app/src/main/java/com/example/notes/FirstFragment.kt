@@ -41,6 +41,8 @@ class FirstFragment : Fragment() {
 
         initRecyclerView()
         getNotes()
+
+
     }
 
     private fun initRecyclerView() {
