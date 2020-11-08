@@ -10,8 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.adapter.NoteRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_first.*
 
 
@@ -42,6 +44,9 @@ class FirstFragment : Fragment() {
         initRecyclerView()
         getNotes()
 
+        view.findViewById<RecyclerView>(R.id.recyclerView).setOnClickListener {
+            Snackbar.make(view, "working", Snackbar.LENGTH_LONG).show()
+        }
 
     }
 

@@ -1,13 +1,12 @@
 package com.example.notes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.notes.room.Note
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -40,11 +39,11 @@ class NoteFragment : Fragment() {
 
     private fun save(view: View) {
         if (editTextTitle.text.isEmpty()) {
-            Snackbar.make(view, "Need a title", 1000)
+            Snackbar.make(view, "Enter a title", 1000).show()
             return
         }
 
-        val note = Note(0, editTextTitle.text.toString(), editTextBody.text.toString())
+        val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
         noteViewModel.insert(note)
 
         requireActivity().onBackPressed()

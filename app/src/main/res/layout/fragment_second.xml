@@ -18,14 +18,20 @@
                 android:id="@+id/editTextTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"/>
+                android:background="@null"
+                android:textSize="32sp"
+                android:hint="@string/title"
+                android:paddingBottom="10dp"
+                android:inputType="textCapSentences" />
 
             <EditText
                 android:id="@+id/editTextBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Note"
-                android:layout_below="@+id/editTextTitle" />
+                android:hint="@string/enter_note"
+                android:background="@null"
+                android:layout_below="@+id/editTextTitle"
+                android:inputType="textCapSentences"/>
         </RelativeLayout>
 
     </ScrollView>
@@ -37,6 +43,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:src="@drawable/ic_baseline_check_24"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
