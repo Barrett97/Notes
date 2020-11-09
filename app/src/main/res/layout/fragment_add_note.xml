@@ -5,12 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <data>
-        <variable
-            android:name="note"
-            android:type="com.example.notes.room" />
-    </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -26,16 +20,16 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textSize="32sp"
-                android:text="@{note.title}"
+                android:hint="@string/title"
                 android:paddingBottom="10dp"
                 android:inputType="text" />
-            <!--                android:maxLines=""/>-->
+<!--                android:maxLines=""/>-->
 
             <EditText
                 android:id="@+id/editTextBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{note.body}"
+                android:hint="@string/enter_note"
                 android:background="@null"
                 android:layout_below="@+id/editTextTitle"
                 android:inputType="text"

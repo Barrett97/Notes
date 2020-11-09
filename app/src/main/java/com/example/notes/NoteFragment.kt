@@ -41,6 +41,8 @@ class NoteFragment : Fragment() {
         setupUI(view)
         initRecyclerView()
         getNotes()
+
+
     }
 
     private fun initRecyclerView() {
@@ -72,6 +74,7 @@ class NoteFragment : Fragment() {
         v.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             findNavController().navigate(R.id.action_NoteFragment_to_EditNoteFragment)
         }
+
     }
 
     private var ith: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -83,5 +86,7 @@ class NoteFragment : Fragment() {
             noteViewModel.delete(noteRecyclerAdapter.notes[viewHolder.adapterPosition])
             noteRecyclerAdapter.notifyDataSetChanged()
         }
+
+
     }
 }

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.example.notes.room.Note
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_edit_note.*
+import kotlinx.android.synthetic.main.fragment_add_note.*
 
 
 /**
@@ -21,7 +21,7 @@ class EditNoteFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_edit_note, container, false)
+        return inflater.inflate(R.layout.fragment_add_note, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,6 @@ class EditNoteFragment : Fragment() {
 
         val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
         noteViewModel.insert(note)
-
         requireActivity().onBackPressed()
     }
 

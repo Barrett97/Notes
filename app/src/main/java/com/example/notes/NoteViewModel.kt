@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.notes.repo.NoteRepo
+import com.example.notes.room.NoteRepo
 import com.example.notes.room.Note
 import com.example.notes.room.NoteDB
 import kotlinx.coroutines.launch

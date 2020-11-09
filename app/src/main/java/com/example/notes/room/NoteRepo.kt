@@ -1,4 +1,4 @@
-package com.example.notes.repo
+package com.example.notes.room
 
 import androidx.lifecycle.LiveData
 import com.example.notes.room.Note

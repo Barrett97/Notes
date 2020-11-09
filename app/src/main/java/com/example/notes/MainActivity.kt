@@ -6,21 +6,22 @@ import android.view.Menu
 import android.view.MenuItem
 
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.notes.room.Note
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val navController: NavController = findNavController(R.id.nav_host_fragment)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
+
         setupActionBarWithNavController(navController)
 
       }
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // later support for appbar fragment navigation
+//    override fun onSupportNavigateUp(): Boolean {
+//        return findNavController(R.id.nav_host_fragment).navigateUp()
+//    }
+
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
 
@@ -50,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStack()
         }
+    }
+
+    fun navToEditNote(note: Note) {
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_NoteFragment_to_EditNoteFragment)
     }
 
 }
