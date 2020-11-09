@@ -1,53 +1,87 @@
 package com.example.notes
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.notes.room.Note
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.notes.adapter.NoteRecyclerAdapter
+import com.example.notes.adapter.MyItemTouchHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.fragment_note.*
 
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * A simple [Fragment] subclass as the default destination in the navigation.
+ *
+ * This fragment displays the notes stored in the NoteViewModel and
+ * allows for new notes to be created or existing notes to be edited.
  */
 class NoteFragment : Fragment() {
 
     private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
+    // noteViewModel =
+    private lateinit var noteRecyclerAdapter: NoteRecyclerAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        return inflater.inflate(R.layout.fragment_note, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        noteViewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
-
-        view.findViewById<FloatingActionButton>(R.id.fabEditNote).setOnClickListener {
-            save(view)
-        }
-
+        setupUI(view)
+        initRecyclerView()
+        getNotes()
     }
 
-    private fun save(view: View) {
-        if (editTextTitle.text.isEmpty()) {
-            Snackbar.make(view, "Enter a title", 1000).show()
-            return
+    private fun initRecyclerView() {
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+            noteRecyclerAdapter = NoteRecyclerAdapter()
+            adapter = noteRecyclerAdapter;
+//            val callback = MyItemTouchHelper(noteRecyclerAdapter)
+//            val itemTouchHelper = ItemTouchHelper(callback)
+//            noteRecyclerAdapter.setTouchHelper(itemTouchHelper)
+//            itemTouchHelper.attachToRecyclerView(this)
+            ItemTouchHelper(ith).attachToRecyclerView(this)
         }
-
-        val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
-        noteViewModel.insert(note)
-
-        requireActivity().onBackPressed()
     }
 
+    private fun getNotes() {
+        noteViewModel.liveNotes.observe(viewLifecycleOwner, { notes ->
+            if (notes.isNotEmpty()) {
+                noteRecyclerAdapter.notes.clear()
+            }
+            notes?.let { noteList ->
+                noteRecyclerAdapter.setNote(noteList)
+            }
+            noteRecyclerAdapter.notifyDataSetChanged()
+        })
+    }
 
+    private fun setupUI(v: View) {
+        v.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            findNavController().navigate(R.id.action_NoteFragment_to_EditNoteFragment)
+        }
+    }
+
+    private var ith: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            noteViewModel.delete(noteRecyclerAdapter.notes[viewHolder.adapterPosition])
+            noteRecyclerAdapter.notifyDataSetChanged()
+        }
+    }
 }

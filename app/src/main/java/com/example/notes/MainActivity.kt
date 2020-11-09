@@ -4,31 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.notes.adapter.NoteRecyclerAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.fragment_first.*
-
-/*
-Functionality
-- Create, edit, and delete multiple multi-line, free-text notes.
-- Notes should be displayed in groups by their priority (high, normal, low).
-- Allow note priority and sort order to be changed by moving them from group to group.
-
-Advanced Requirements
-- Add ability to do a “live” search through notes by their content.
- */
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        var count = supportFragmentManager.backStackEntryCount
+        val count = supportFragmentManager.backStackEntryCount
 
         if (count == 0) {
             super.onBackPressed()

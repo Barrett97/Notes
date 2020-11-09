@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.WelloNotes">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:padding="5dp" />
             <TextView
                 android:id="@+id/textViewBody"
                 android:layout_width="match_parent"

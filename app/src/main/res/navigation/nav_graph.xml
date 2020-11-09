@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.notes.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/NoteFragment" />
-    </fragment>
+    app:startDestination="@id/NoteFragment">
 
     <fragment
         android:id="@+id/NoteFragment"
         android:name="com.example.notes.NoteFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_note">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_NoteFragment_to_EditNoteFragment"
+            app:destination="@id/EditNoteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EditNoteFragment"
+        android:name="com.example.notes.EditNoteFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_edit_note">
+
+        <action
+            android:id="@+id/action_EditNoteFragment_to_NoteFragment"
+            app:destination="@id/NoteFragment" />
     </fragment>
 
 </navigation>

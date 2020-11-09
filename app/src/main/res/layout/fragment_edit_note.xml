@@ -22,7 +22,8 @@
                 android:textSize="32sp"
                 android:hint="@string/title"
                 android:paddingBottom="10dp"
-                android:inputType="textCapSentences" />
+                android:inputType="text" />
+<!--                android:maxLines=""/>-->
 
             <EditText
                 android:id="@+id/editTextBody"
@@ -31,7 +32,8 @@
                 android:hint="@string/enter_note"
                 android:background="@null"
                 android:layout_below="@+id/editTextTitle"
-                android:inputType="textCapSentences"/>
+                android:inputType="text"
+                />
         </RelativeLayout>
 
     </ScrollView>
