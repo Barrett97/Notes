@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_add_note.*
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class EditNoteFragment : Fragment() {
+class AddNoteFragment : Fragment() {
 
     private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
 

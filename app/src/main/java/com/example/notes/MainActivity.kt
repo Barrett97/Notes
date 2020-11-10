@@ -4,23 +4,29 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.notes.databinding.ActivityMainBinding
 import com.example.notes.room.Note
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(binding.root)
         setSupportActionBar(toolbar)
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         setupActionBarWithNavController(navController)
 
@@ -56,10 +62,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.popBackStack()
         }
-    }
-
-    fun navToEditNote(note: Note) {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_NoteFragment_to_EditNoteFragment)
     }
 
 }

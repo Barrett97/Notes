@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            android:name="note"
-            android:type="com.example.notes.room" />
+            name="note"
+            type="com.example.notes.room.Note" />
+
+
     </data>
 
-    <ScrollView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+<!--        android:onClick="@{() -> }"-->
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="match_parent" >
 
-            <EditText
-                android:id="@+id/editTextTitle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="32sp"
-                android:text="@{note.title}"
-                android:paddingBottom="10dp"
-                android:inputType="text" />
-            <!--                android:maxLines=""/>-->
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
-            <EditText
-                android:id="@+id/editTextBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{note.body}"
-                android:background="@null"
-                android:layout_below="@+id/editTextTitle"
-                android:inputType="text"
-                />
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textSize="32sp"
+                    android:text="@{note.title}"
+                    android:paddingBottom="10dp"
+                    android:inputType="text" />
+                <!--                android:maxLines=""/>-->
 
-    </ScrollView>
+                <EditText
+                    android:id="@+id/editTextBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{note.body}"
+                    android:background="@null"
+                    android:layout_below="@+id/editTextTitle"
+                    android:inputType="text"
+                    />
+            </RelativeLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabEditNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_baseline_check_24"/>
+        </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabEditNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_baseline_check_24"/>
+
+    </androidx.cardview.widget.CardView>
+</layout>
