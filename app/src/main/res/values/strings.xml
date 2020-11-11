@@ -15,4 +15,6 @@
 
     <string name="notes">Notes</string>
     <string name="editNote">Edit Note</string>
+
+    <string name="fabAddNote">Add Note</string>
 </resources>

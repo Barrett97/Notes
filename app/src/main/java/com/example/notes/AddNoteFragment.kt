@@ -34,8 +34,6 @@ class AddNoteFragment : Fragment() {
         v.findViewById<FloatingActionButton>(R.id.fabEditNote).setOnClickListener {
             save(v)
         }
-
-
     }
 
     private fun save(view: View) {

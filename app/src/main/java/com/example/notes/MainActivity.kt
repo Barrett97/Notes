@@ -28,15 +28,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 //        binding = ActivityMainBinding.inflate(layoutInflater)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
-        setSupportActionBar(toolbar)
 
+        setSupportActionBar(toolbar)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         navController = findNavController(R.id.nav_host_fragment)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         setupActionBarWithNavController(navController)
       }
