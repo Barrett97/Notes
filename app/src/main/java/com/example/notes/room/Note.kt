@@ -11,4 +11,16 @@ data class Note (
     @ColumnInfo (name = "body") val body: String?
 //    @ColumnInfo (name = "dateCreated") val date: Date,
 //    @ColumnInfo (name = "lastEdited") val lastEdited: Date
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (javaClass != other?.javaClass) {
+            return false
+        }
+
+        other as Note
+        if (id != other.id || title != other.title || body != other.body) {
+            return false
+        }
+        return true
+    }
+}

@@ -1,7 +1,13 @@
 package com.example.notes.adapter
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.*
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.DataBindingViewHolder
@@ -10,34 +16,42 @@ import com.example.notes.databinding.LayoutNoteListItemBinding
 import com.example.notes.room.Note
 import kotlinx.android.synthetic.main.layout_note_list_item.view.*
 import com.example.notes.BR.note
-import com.example.notes.navigation.NavListener
+import com.example.notes.EditNoteActivity
+import kotlinx.coroutines.withContext
 
 
 class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {
 
 //    private lateinit var touchHelper: ItemTouchHelper
     var notes: ArrayList<Note> = ArrayList()
+    lateinit var binding: LayoutNoteListItemBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 //        return NoteViewHolder(
 //            LayoutInflater.from(parent.context).inflate(R.layout.layout_note_list_item, parent, false)
 //        )
-
-        val binding = LayoutNoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NoteViewHolder(binding)
+        binding = LayoutNoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
-            is NoteViewHolder -> {
+            is ViewHolder -> {
                 holder.onBind(notes[position])
             }
         }
     }
 
-    internal fun setNote(notes: List<Note>) {
-        this.notes.addAll(notes)
-        notifyDataSetChanged()
+    fun submitList(noteList: List<Note>) {
+        val oldList = this.notes
+        val diffResult : DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            NoteItemDiffCallBack(
+                oldList,
+                noteList
+            )
+        )
+        this.notes = noteList as ArrayList<Note>
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun getItemCount() = notes.size
@@ -54,17 +68,39 @@ class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Ite
         notifyItemRemoved(position)
     }
 
-//    fun setTouchHelper(myItemTouchHelper: ItemTouchHelper) {
-//        touchHelper = myItemTouchHelper
-//    }
+    class NoteItemDiffCallBack(
+        var oldNoteList: List<Note>,
+        var newNoteList: List<Note>
+    ): DiffUtil.Callback() {
+        override fun getOldListSize(): Int {
+            return oldNoteList.size
+        }
 
-    inner class NoteViewHolder(dataBinding: LayoutNoteListItemBinding): DataBindingViewHolder<Note>(dataBinding) {
+        override fun getNewListSize(): Int {
+            return newNoteList.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return (oldNoteList[oldItemPosition].id == newNoteList[newItemPosition].id)
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldNoteList[oldItemPosition].equals(newNoteList[newItemPosition])
+        }
+
+    }
+
+    class ViewHolder(dataBinding: LayoutNoteListItemBinding): DataBindingViewHolder<Note>(dataBinding) {
+
         override fun onBind(t: Note): Unit = with(t) {
             dataBinding.setVariable(note, t)
         }
 
     }
 
+//        fun setTouchHelper(myItemTouchHelper: ItemTouchHelper) {
+//        touchHelper = myItemTouchHelper
+//    }
 //    inner class NoteViewHolder constructor(itemView: View):
 //            RecyclerView.ViewHolder(itemView) {
 ////            View.OnTouchListener,
@@ -113,3 +149,11 @@ class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Ite
 //    }
 
 }
+
+//class NoteViewHolder(binding: LayoutNoteListItemBinding): RecyclerView.ViewHolder(binding.root) {
+//
+//    fun onBind(note: Note) {
+//
+//    }
+//
+//}

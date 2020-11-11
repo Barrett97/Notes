@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notes.adapter.NoteRecyclerAdapter
 import com.example.notes.adapter.MyItemTouchHelper
 import com.example.notes.databinding.FragmentNoteBinding
@@ -24,12 +26,13 @@ import kotlinx.android.synthetic.main.fragment_note.*
  * This fragment displays the notes stored in the NoteViewModel and
  * allows for new notes to be created or existing notes to be edited.
  */
-class NoteFragment : Fragment() {
+class NoteListFragment : Fragment() {
 
     private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
-//    private val noteRecyclerAdapter: NoteRecyclerAdapter by lazy { NoteRecyclerAdapter(arrayListOf(), navListener) }
+//    private val noteRecyclerAdapter: NoteRecyclerAdapter by lazy { NoteRecyclerAdapter() }
     private lateinit var noteRecyclerAdapter: NoteRecyclerAdapter
     private var navListener: NavListener? = null
+    private lateinit var binding: FragmentNoteBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -37,7 +40,7 @@ class NoteFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val binding : FragmentNoteBinding = inflate(inflater, R.layout.fragment_note, container, false)
+        binding = inflate(inflater, R.layout.fragment_note, container, false)
         binding.apply {
             lifecycleOwner = this.lifecycleOwner
             listener = navListener
@@ -47,7 +50,6 @@ class NoteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
         setupUI(view)
@@ -55,10 +57,16 @@ class NoteFragment : Fragment() {
         getNotes()
     }
 
+    private fun setupUI(v: View) {
+        v.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            findNavController().navigate(R.id.action_NoteFragment_to_EditNoteFragment)
+        }
+    }
+
     private fun initRecyclerView() {
 
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireActivity().applicationContext)
+        binding.recyclerView.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             noteRecyclerAdapter = NoteRecyclerAdapter()
             adapter = noteRecyclerAdapter;
 //            val callback = MyItemTouchHelper(noteRecyclerAdapter)
@@ -72,20 +80,10 @@ class NoteFragment : Fragment() {
     private fun getNotes() {
 
         noteViewModel.liveNotes.observe(viewLifecycleOwner, { notes ->
-            if (notes.isNotEmpty()) {
-                noteRecyclerAdapter.notes.clear()
-            }
             notes?.let { noteList ->
-                noteRecyclerAdapter.setNote(noteList)
+                noteRecyclerAdapter.submitList(noteList)
             }
         })
-    }
-
-    private fun setupUI(v: View) {
-
-        v.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            findNavController().navigate(R.id.action_NoteFragment_to_EditNoteFragment)
-        }
     }
 
     private var itemTouchHelper: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

@@ -12,4 +12,7 @@
 
     <string name="title">Title</string>
     <string name="enter_note">Enter note here.</string>
+
+    <string name="notes">Notes</string>
+    <string name="editNote">Edit Note</string>
 </resources>

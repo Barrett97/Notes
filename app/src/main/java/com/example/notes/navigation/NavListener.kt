@@ -1,8 +1,10 @@
 package com.example.notes.navigation
 
+import android.app.Activity
+
 interface NavListener {
 
-    fun mainToAddNote()
+    fun mainToAddNote(a: Activity)
     fun mainToEditNote()
 
 }

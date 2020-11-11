@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <data>
         <variable
@@ -9,28 +10,34 @@
             type="com.example.notes.room.Note" />
 
         <variable
-            name="listener"
-            type="com.example.notes.navigation.NavListener" />
+            name="noteListFragment"
+            type="com.example.notes.NoteListFragment" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="4dp"
-        android:layout_marginBottom="4dp"
-        android:id="@+id/noteCard">
+        android:padding="2dp"
+        android:layout_margin="1dp">
 
-        <RelativeLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.WelloNotes">
+            android:elevation="1dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/noteCard"
+            android:padding="@dimen/card_padding"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/material_on_surface_stroke"
+            app:cardCornerRadius="6dp"
+            >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/textViewTitle"
                     android:layout_width="match_parent"
@@ -38,15 +45,19 @@
                     android:textStyle="bold"
                     android:text="@{note.title}"
                     android:padding="5dp" />
+
                 <TextView
                     android:id="@+id/textViewBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{note.title}"
+                    android:text="@{note.body}"
+                    android:layout_below="@id/textViewTitle"
                     android:padding="5dp"/>
-            </LinearLayout>
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
 </layout>
