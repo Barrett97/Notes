@@ -42,7 +42,8 @@ class NoteListFragment : Fragment() {
 
         binding = inflate(inflater, R.layout.fragment_note, container, false)
         binding.apply {
-            lifecycleOwner = this.lifecycleOwner
+            // necessary for classes working with livedata?
+            lifecycleOwner = viewLifecycleOwner
             listener = navListener
         }
 

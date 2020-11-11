@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val noteRepo: NoteRepo
-    val liveNotes: LiveData<List<Note>>
+    private val liveNotes: LiveData<List<Note>>
 
     init {
         val noteDao = NoteDB.getDatabase(application).noteDao
