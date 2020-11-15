@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notes.adapter.NoteRecyclerAdapter
@@ -18,7 +16,6 @@ import com.example.notes.adapter.MyItemTouchHelper
 import com.example.notes.databinding.FragmentNoteBinding
 import com.example.notes.navigation.NavListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.fragment_note.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.

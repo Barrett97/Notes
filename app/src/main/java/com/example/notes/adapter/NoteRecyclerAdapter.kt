@@ -1,23 +1,12 @@
 package com.example.notes.adapter
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.view.*
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.DataBindingViewHolder
-import com.example.notes.R
 import com.example.notes.databinding.LayoutNoteListItemBinding
 import com.example.notes.room.Note
-import kotlinx.android.synthetic.main.layout_note_list_item.view.*
 import com.example.notes.BR.note
-import com.example.notes.EditNoteActivity
-import kotlinx.coroutines.withContext
 
 
 class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {

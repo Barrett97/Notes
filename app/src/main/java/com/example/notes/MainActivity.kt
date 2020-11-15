@@ -1,23 +1,16 @@
 package com.example.notes
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.notes.databinding.ActivityMainBinding
-import com.example.notes.navigation.NavListener
-import com.example.notes.navigation.NavListenerImpl
-import com.example.notes.room.Note
 import kotlinx.android.synthetic.main.activity_main.*
 
 
