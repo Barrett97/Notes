@@ -1,7 +1,7 @@
 # Notes
 A simple notes application developed in Kotlin.
 
-This application makes use of the Model View ViewModel (MVVM) architecture.
+This application makes use of the Model View ViewModel (MVVM) and single-activity architecture.
 
 The Room Persistence Library is used for storing notes locally.
 
