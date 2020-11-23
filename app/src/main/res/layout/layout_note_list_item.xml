@@ -29,7 +29,7 @@
         android:layout_marginBottom="2dp"
         android:id="@+id/noteCard"
         android:padding="@dimen/card_padding"
-        android:onClick="@{() -> listener.mainToEditNote(note.id)}"
+        android:onClick="@{() -> listener.mainToEditNote(note.id, note.date)}"
         app:strokeWidth="1dp"
         app:strokeColor="@color/material_on_surface_stroke"
         app:cardCornerRadius="6dp"
