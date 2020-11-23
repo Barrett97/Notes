@@ -1,32 +1,35 @@
 package com.example.notes.adapter
 
+
 import android.view.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes.DataBindingViewHolder
 import com.example.notes.databinding.LayoutNoteListItemBinding
 import com.example.notes.room.Note
-import com.example.notes.BR.note
+import com.example.notes.navigation.NavListener
 
 
-class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {
+class NoteRecyclerAdapter(private val navListener: NavListener?)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {
 
 //    private lateinit var touchHelper: ItemTouchHelper
     var notes: ArrayList<Note> = ArrayList()
-    lateinit var binding: LayoutNoteListItemBinding
+    var listener: NavListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 //        return NoteViewHolder(
 //            LayoutInflater.from(parent.context).inflate(R.layout.layout_note_list_item, parent, false)
 //        )
-        binding = LayoutNoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+//        binding = LayoutNoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//        return ViewHolder(binding)
+
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
             is ViewHolder -> {
-                holder.onBind(notes[position])
+                holder.bind(navListener, notes[position])
             }
         }
     }
@@ -57,6 +60,26 @@ class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Ite
         notifyItemRemoved(position)
     }
 
+    class ViewHolder private constructor(private val binding: LayoutNoteListItemBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(navListener: NavListener?, note: Note) {
+            binding.listener = navListener
+            binding.note = note
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = LayoutNoteListItemBinding.inflate(layoutInflater, parent, false)
+
+                return ViewHolder(binding)
+            }
+        }
+
+    }
+
     class NoteItemDiffCallBack(
         var oldNoteList: List<Note>,
         var newNoteList: List<Note>
@@ -74,15 +97,7 @@ class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Ite
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldNoteList[oldItemPosition].equals(newNoteList[newItemPosition])
-        }
-
-    }
-
-    class ViewHolder(dataBinding: LayoutNoteListItemBinding): DataBindingViewHolder<Note>(dataBinding) {
-
-        override fun onBind(t: Note): Unit = with(t) {
-            dataBinding.setVariable(note, t)
+            return oldNoteList[oldItemPosition] == newNoteList[newItemPosition]
         }
 
     }
@@ -138,11 +153,3 @@ class NoteRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Ite
 //    }
 
 }
-
-//class NoteViewHolder(binding: LayoutNoteListItemBinding): RecyclerView.ViewHolder(binding.root) {
-//
-//    fun onBind(note: Note) {
-//
-//    }
-//
-//}

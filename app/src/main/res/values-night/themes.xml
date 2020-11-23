@@ -14,4 +14,13 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/opensans_font</item>
     </style>
+
+    <style name="Theme.WelloNotes.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.WelloNotes.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.WelloNotes.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -1,6 +1,8 @@
 package com.example.notes
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notes.adapter.NoteRecyclerAdapter
-import com.example.notes.adapter.MyItemTouchHelper
 import com.example.notes.databinding.FragmentNoteBinding
 import com.example.notes.navigation.NavListener
+import com.example.notes.navigation.NavListenerImpl
+import com.example.notes.room.Note
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -30,6 +33,7 @@ class NoteListFragment : Fragment() {
     private lateinit var noteRecyclerAdapter: NoteRecyclerAdapter
     private var navListener: NavListener? = null
     private lateinit var binding: FragmentNoteBinding
+    private lateinit var navListenerImpl: NavListenerImpl
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -43,6 +47,7 @@ class NoteListFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             listener = navListener
         }
+        navListenerImpl = NavListenerImpl(requireActivity())
 
         return binding.root
     }
@@ -50,9 +55,26 @@ class NoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupNavListener()
         setupUI(view)
         initRecyclerView()
         getNotes()
+    }
+
+    private fun setupNavListener() {
+        navListener = object: NavListener {
+            override fun mainToAddNote() {
+            }
+
+            override fun mainToEditNote(id: String) {
+                navListenerImpl.mainToEditNote(id)
+//                val args = Bundle()
+//                args.putString("note_id", id)
+//                Log.d("note_id", id)
+//                findNavController().navigate(R.id.action_NoteFragment_to_EditNoteFragment, args)
+            }
+
+        }
     }
 
     private fun setupUI(v: View) {
@@ -65,8 +87,9 @@ class NoteListFragment : Fragment() {
 
         binding.recyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            noteRecyclerAdapter = NoteRecyclerAdapter()
-            adapter = noteRecyclerAdapter;
+            noteRecyclerAdapter = NoteRecyclerAdapter(navListener)
+            adapter = noteRecyclerAdapter
+
 //            val callback = MyItemTouchHelper(noteRecyclerAdapter)
 //            val itemTouchHelper = ItemTouchHelper(callback)
 //            noteRecyclerAdapter.setTouchHelper(itemTouchHelper)

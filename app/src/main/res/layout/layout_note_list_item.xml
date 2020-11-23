@@ -12,52 +12,52 @@
         <variable
             name="noteListFragment"
             type="com.example.notes.NoteListFragment" />
+
+        <variable
+            name="listener"
+            type="com.example.notes.navigation.NavListener" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.notes.NoteViewModel" />
     </data>
 
-    <RelativeLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:layout_margin="1dp">
+        android:elevation="1dp"
+        android:layout_marginBottom="2dp"
+        android:id="@+id/noteCard"
+        android:padding="@dimen/card_padding"
+        android:onClick="@{() -> listener.mainToEditNote(note.id)}"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/material_on_surface_stroke"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="3dp" >
 
-        <com.google.android.material.card.MaterialCardView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:layout_marginBottom="2dp"
-            android:id="@+id/noteCard"
-            android:padding="@dimen/card_padding"
-            app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/material_on_surface_stroke"
-            app:cardCornerRadius="6dp"
-            >
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:textStyle="bold"
+                android:text="@{note.title}"
+                android:padding="5dp" />
 
-                <TextView
-                    android:id="@+id/textViewTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@{note.title}"
-                    android:padding="5dp" />
+            <TextView
+                android:id="@+id/textViewBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{note.body}"
+                android:layout_below="@id/textViewTitle"
+                android:padding="5dp"/>
 
-                <TextView
-                    android:id="@+id/textViewBody"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{note.body}"
-                    android:layout_below="@id/textViewTitle"
-                    android:padding="5dp"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>
