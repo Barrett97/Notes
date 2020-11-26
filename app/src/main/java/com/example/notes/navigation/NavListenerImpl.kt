@@ -3,11 +3,8 @@ package com.example.notes.navigation
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import com.example.notes.MainActivity
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.notes.R
-import kotlinx.android.synthetic.main.content_main.*
 
 class NavListenerImpl(private var activity: Activity) : NavListener {
 

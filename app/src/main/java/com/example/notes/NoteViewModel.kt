@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.notes.room.NoteRepo
 import com.example.notes.room.Note
 import com.example.notes.room.NoteDB
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
