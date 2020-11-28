@@ -1,6 +1,7 @@
 package com.example.notes.room
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.Single
 
 class NoteRepo(private val noteDao: NoteDao) {

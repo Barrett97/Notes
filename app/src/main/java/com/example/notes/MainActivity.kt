@@ -16,14 +16,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 //        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
 
         setSupportActionBar(toolbar)

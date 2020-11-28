@@ -1,10 +1,7 @@
 package com.example.notes
 
 import android.app.Application
-import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.notes.room.NoteRepo
 import com.example.notes.room.Note
 import com.example.notes.room.NoteDB
@@ -14,14 +11,10 @@ import kotlinx.coroutines.launch
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val noteRepo: NoteRepo
-    val liveNotes: LiveData<List<Note>>
+    private val noteRepo: NoteRepo = NoteRepo(NoteDB.getDatabase(application).noteDao)
 
-    init {
-        val noteDao = NoteDB.getDatabase(application).noteDao
-        noteRepo = NoteRepo(noteDao)
-        liveNotes = noteRepo.liveNotes
-    }
+    private val _liveNotes: LiveData<List<Note>> = noteRepo.liveNotes
+    val liveNotes: LiveData<List<Note>> = _liveNotes
 
     fun insert(note: Note) = viewModelScope.launch {
         noteRepo.insert(note)

@@ -6,6 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="noteListFragment"
+            type="com.example.notes.NoteListFragment" />
+
         <variable
             name="listener"
             type="com.example.notes.navigation.NavListener" />
