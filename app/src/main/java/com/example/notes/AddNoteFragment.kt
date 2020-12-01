@@ -68,6 +68,8 @@ class AddNoteFragment : Fragment() {
         }
     }
 
+
+    // TODO: New notes do not appear at the top of the list
     private fun save(view: View) {
         if (editTextTitle.text.isEmpty() && editTextBody.text.isEmpty()) {
             Snackbar.make(view, "Missing title or note body", 1000).show()
