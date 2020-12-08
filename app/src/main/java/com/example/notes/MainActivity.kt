@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+//        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
         return true
     }
 
@@ -49,11 +50,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    // TODO
-//    override fun onSupportNavigateUp(): Boolean {
-//        return findNavController(R.id.nav_host_fragment).navigateUp()
-//    }
 
     override fun onBackPressed() {
         val count = supportFragmentManager.backStackEntryCount
@@ -69,12 +65,4 @@ class MainActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-
-    // TODO
-    fun mainToAddNote() {
-//        findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_NoteFragment_to_EditNoteFragment)
-        navController.navigate(R.id.action_NoteFragment_to_EditNoteFragment)
-        Log.d("NAV", "working")
-    }
-
 }
