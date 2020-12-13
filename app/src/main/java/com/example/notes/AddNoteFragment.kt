@@ -26,20 +26,15 @@ class AddNoteFragment : Fragment() {
     private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding : FragmentAddNoteBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_note, container, false)
         binding.lifecycleOwner = this
 //
-        val id = arguments?.getString("note_id")
+        val id = arguments?.getInt("note_id")
 
-        if (id != null) {
-            noteViewModel.getNoteById(id).observe(viewLifecycleOwner, Observer {
-                binding.editTextTitle.text = Editable.Factory.getInstance().newEditable( it.title)
-                binding.editTextBody.text = Editable.Factory.getInstance().newEditable( it.body)
-            })
-        }
+        initNoteContent(id, binding)
 
         binding.fabEditNote.setOnClickListener {
             if (id != null) {
@@ -47,7 +42,7 @@ class AddNoteFragment : Fragment() {
                 noteViewModel.edit(note)
                 requireActivity().onBackPressed()
             } else {
-                val note = Note(UUID.randomUUID().toString(), editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
+                val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
                 noteViewModel.insert(note)
                 requireActivity().onBackPressed()
             }
@@ -60,6 +55,15 @@ class AddNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        setupUI(view)
+    }
+
+    private fun initNoteContent(id: Int?, binding: FragmentAddNoteBinding) {
+        if (id != null) {
+            noteViewModel.getNoteById(id).observe(viewLifecycleOwner, Observer {
+                binding.editTextTitle.text = Editable.Factory.getInstance().newEditable( it.title)
+                binding.editTextBody.text = Editable.Factory.getInstance().newEditable( it.body)
+            })
+        }
     }
 
     private fun setupUI(v: View) {
@@ -76,7 +80,7 @@ class AddNoteFragment : Fragment() {
             return
         }
 
-        val note = Note(UUID.randomUUID().toString(), editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
+        val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
         noteViewModel.insert(note)
         requireActivity().onBackPressed()
     }

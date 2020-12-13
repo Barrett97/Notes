@@ -1,7 +1,6 @@
 package com.example.notes.room
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.reactivex.Single
 
 class NoteRepo(private val noteDao: NoteDao) {
@@ -20,7 +19,7 @@ class NoteRepo(private val noteDao: NoteDao) {
         noteDao.edit(note)
     }
 
-    fun getNoteById(id: String): Single<Note> {
+    fun getNoteById(id: Int): Single<Note> {
         return noteDao.getNoteById(id)
     }
 }

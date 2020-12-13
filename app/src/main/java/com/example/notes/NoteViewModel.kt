@@ -28,7 +28,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         noteRepo.edit(note)
     }
 
-    fun getNoteById(id: String): LiveData<Note> {
+    fun getNoteById(id: Int): LiveData<Note> {
         return noteRepo.getNoteById(id)
             .flatMap { Single.just(it) }
             .subscribeOn(Schedulers.io())

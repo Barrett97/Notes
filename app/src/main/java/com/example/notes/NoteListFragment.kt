@@ -64,7 +64,7 @@ class NoteListFragment : Fragment() {
             override fun mainToAddNote() {
             }
 
-            override fun mainToEditNote(id: String) {
+            override fun mainToEditNote(id: Int) {
                 navListenerImpl.mainToEditNote(id)
 //                val args = Bundle()
 //                args.putString("note_id", id)

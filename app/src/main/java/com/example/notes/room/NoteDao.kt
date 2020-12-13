@@ -21,5 +21,5 @@ interface NoteDao {
     suspend fun edit(n: Note)
 
     @Query("SELECT * FROM table_notes WHERE id = (:id)")
-    fun getNoteById(id: String): Single<Note>
+    fun getNoteById(id: Int): Single<Note>
 }

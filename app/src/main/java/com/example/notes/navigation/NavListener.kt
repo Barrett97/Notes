@@ -3,6 +3,6 @@ package com.example.notes.navigation
 interface NavListener {
 
     fun mainToAddNote()
-    fun mainToEditNote(id: String)
+    fun mainToEditNote(id: Int)
 
 }
