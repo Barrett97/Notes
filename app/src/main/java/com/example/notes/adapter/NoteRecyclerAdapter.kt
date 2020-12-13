@@ -10,7 +10,7 @@ import com.example.notes.navigation.NavListener
 
 
 class NoteRecyclerAdapter(private val navListener: NavListener?)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperAdapter {
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 //    private lateinit var touchHelper: ItemTouchHelper
     var notes: ArrayList<Note> = ArrayList()
@@ -47,18 +47,6 @@ class NoteRecyclerAdapter(private val navListener: NavListener?)
     }
 
     override fun getItemCount() = notes.size
-
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        val fromNote = notes[fromPosition]
-        notes.remove(fromNote)
-        notes.add(toPosition, fromNote)
-        notifyItemMoved(fromPosition, toPosition)
-    }
-
-    override fun onItemSwiped(position: Int) {
-        notes.removeAt(position)
-        notifyItemRemoved(position)
-    }
 
     class ViewHolder private constructor(private val binding: LayoutNoteListItemBinding) :
             RecyclerView.ViewHolder(binding.root) {
@@ -101,55 +89,4 @@ class NoteRecyclerAdapter(private val navListener: NavListener?)
         }
 
     }
-
-//        fun setTouchHelper(myItemTouchHelper: ItemTouchHelper) {
-//        touchHelper = myItemTouchHelper
-//    }
-//    inner class NoteViewHolder constructor(itemView: View):
-//            RecyclerView.ViewHolder(itemView) {
-////            View.OnTouchListener,
-////            GestureDetector.OnGestureListener {
-//
-//        private val title: TextView = itemView.textViewTitle
-//        private val body: TextView = itemView.textViewBody
-//
-//        fun bind(note: Note) {
-//            title.text = note.title
-//            body.text = note.body
-//        }
-////        var gestureDetector: GestureDetector = GestureDetector(itemView.context, this)
-////        init {
-////            itemView.setOnTouchListener(this)
-////        }
-////
-////        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-////            gestureDetector.onTouchEvent(event)
-////            return true
-////        }
-////
-////        override fun onDown(e: MotionEvent?): Boolean {
-////            return false
-////        }
-////
-////        override fun onShowPress(e: MotionEvent?) {
-////
-////        }
-////
-////        override fun onSingleTapUp(e: MotionEvent?): Boolean {
-////            return true
-////        }
-////
-////        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-////            return false
-////        }
-////
-////        override fun onLongPress(e: MotionEvent?) {
-////              touchHelper.startDrag(this)
-////        }
-////
-////        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-////            return true
-////        }
-//    }
-
 }
