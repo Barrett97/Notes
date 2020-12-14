@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
             <LinearLayout
+                android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
 
                 <EditText
                     android:id="@+id/editTextTitle"
@@ -39,7 +38,19 @@
                     />
             </LinearLayout>
 
-        </ScrollView>
+            <TextView
+                android:id="@+id/dateEdited"
+                android:text="date edited"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/dateCreated" />
+
+            <TextView
+                android:id="@+id/dateCreated"
+                android:text="date created"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/constraint_layout" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabEditNote"

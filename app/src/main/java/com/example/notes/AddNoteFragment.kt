@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.notes.databinding.FragmentAddNoteBinding
 import com.example.notes.room.Note
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_note.*
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -31,18 +31,43 @@ class AddNoteFragment : Fragment() {
         val binding : FragmentAddNoteBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_note, container, false)
         binding.lifecycleOwner = this
-//
-        val id = arguments?.getInt("note_id")
 
+        val id = arguments?.getInt("note_id")
+        val year = arguments?.getInt("year")
+        val month = arguments?.getInt("month")
+        val day = arguments?.getInt("day")
+        val hour = arguments?.getInt("hour")
+        val min = arguments?.getInt("min")
+        val sec = arguments?.getInt("sec")
+        val ampm = arguments?.getInt("ampm")
+
+
+        val noteDate = Calendar.getInstance()
+        if (year != null && month != null && day != null
+            && hour != null && min != null && sec != null) {
+            noteDate.set(year, month, day, hour, min, sec)
+        }
+        println("year: $year, month: $month, day: $day, hour: $hour, min: $min, sec: $sec")
         initNoteContent(id, binding)
 
         binding.fabEditNote.setOnClickListener {
             if (id != null) {
-                val note = Note(id, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
+                val note = Note(
+                    id,
+                    editTextTitle.text.toString().trim(),
+                    editTextBody.text.toString().trim(),
+                    noteDate.timeInMillis,
+                    Calendar.getInstance().timeInMillis)
+
                 noteViewModel.edit(note)
                 requireActivity().onBackPressed()
             } else {
-                val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
+                val note = Note(
+                        0,
+                        editTextTitle.text.toString().trim(),
+                        editTextBody.text.toString().trim(),
+                        Calendar.getInstance().timeInMillis,
+                        Calendar.getInstance().timeInMillis)
                 noteViewModel.insert(note)
                 requireActivity().onBackPressed()
             }
@@ -66,13 +91,6 @@ class AddNoteFragment : Fragment() {
         }
     }
 
-    private fun setupUI(v: View) {
-        v.findViewById<FloatingActionButton>(R.id.fabEditNote).setOnClickListener {
-            save(v)
-        }
-    }
-
-
     // TODO: New notes do not appear at the top of the list
     private fun save(view: View) {
         if (editTextTitle.text.isEmpty() && editTextBody.text.isEmpty()) {
@@ -80,7 +98,7 @@ class AddNoteFragment : Fragment() {
             return
         }
 
-        val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim())
+        val note = Note(0, editTextTitle.text.toString().trim(), editTextBody.text.toString().trim(), Calendar.getInstance().timeInMillis, Calendar.getInstance().timeInMillis)
         noteViewModel.insert(note)
         requireActivity().onBackPressed()
     }

@@ -12,17 +12,10 @@ import com.example.notes.navigation.NavListener
 class NoteRecyclerAdapter(private val navListener: NavListener?)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-//    private lateinit var touchHelper: ItemTouchHelper
     var notes: ArrayList<Note> = ArrayList()
     var listener: NavListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        return NoteViewHolder(
-//            LayoutInflater.from(parent.context).inflate(R.layout.layout_note_list_item, parent, false)
-//        )
-//        binding = LayoutNoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return ViewHolder(binding)
-
         return ViewHolder.from(parent)
     }
 
