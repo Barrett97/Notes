@@ -24,7 +24,7 @@ import java.util.*
 class AddNoteFragment : Fragment() {
 
     private val noteViewModel by viewModels<NoteViewModel> { defaultViewModelProviderFactory }
-
+/////////////////////
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
